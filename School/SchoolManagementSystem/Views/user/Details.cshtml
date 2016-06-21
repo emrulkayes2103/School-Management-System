@@ -1,0 +1,248 @@
+﻿@model SchoolManagementSystem.Models.users
+
+@{
+    ViewBag.Title = "Details";
+}
+@section TitleSection
+{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-eye-slash"></i>  user Details
+        </h2>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-danger">
+                    @Errmsg
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-eye-slash"></i>
+                    User details
+                    <div class="pull-right">
+                        <a href='@Url.Action("detailsList", "user")' style="color: #ffffff">
+                            <i class="fa fa-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <img src='@Url.Content("~/ProfileImage/" + Model.profileImage)' class="img-circle" alt='@Model.Name' height="200" width="200"/>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Name :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.Name)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Email :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.Email)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Date of Birth :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.DOB)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+
+                                    <b>
+                                        Gender :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.Gender)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Contact Number :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.ContactNumber)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Nationality :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.nationality)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Blood Group :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.bloodGroup)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Permanent Address :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.perManentAdd)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Present Address :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.presentAdd)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        National ID :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.NationalID)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Father's Name :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.FathersName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Mother's Name :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.motherName)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        User Role :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(user => user.userRole)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

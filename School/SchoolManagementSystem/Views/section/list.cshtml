@@ -1,0 +1,123 @@
+﻿@model SchoolManagementSystem.Models.SectionModel
+
+@{
+    ViewBag.Title = "Section List";
+}
+
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-th-list"></i>    Section List
+        </h2>
+    </div>
+
+}
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-danger">
+                    @Errmsg
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-th-list"></i>
+                    Section List
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    Select Class :
+                                </label>
+                                <div>
+                                    @*@Html.DropDownListFor(section => section.SelectedClass, Model.ClassList, "Select Class", new {@class = "form-control", @id = "ClassDrpDwnList", onchange = "GetSectionLIstByClassId()"})
+                                    @Html.ValidationMessageFor(section => section.SelectedClass, "*")*@
+
+                                    @Html.Partial("Partial/_ClassDropdownListPartial")
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-9">
+                            <label class="control-label"></label>
+                            <div id="loader" style="padding-left: 30%;display: none">
+                                <img src="~/content/img/loader_profile.gif" />
+                            </div>
+                            <table id="sectionList" class="table datatable dataTable table-bordered table-responsive table-striped">
+                                <thead>
+                                <tr>
+                                    <td>
+                                        Section Name
+                                    </td>
+                                    <td>Section Nick Name </td>
+                                    <td>Teacher</td>
+                                    <td colspan="2">Action</td>
+                                </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptContent
+{
+    <script type="text/javascript">
+    function GetSectionLIstByClassId() {
+        var SelectedClassId = $('#ClassDrpDwnList').val();
+        $('#loader').show();
+        $.ajax({
+            url: '@Url.Action("SectionByClassId","section")',
+            method: "POST",
+            cache: false,
+            dataType: "JSON",
+            data: { classId: SelectedClassId }
+         
+        }).done(function (data) {
+            $('#sectionList tbody tr').remove();
+            $('#loader').hide();
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#sectionList').append('<tbody><tr><td>' + data[i].SectionName + '</td>'
+                       + '<td>' + data[i].SectionNickName + '</td>' + '<td>' + data[i].teacherName + '</td>' +
+                       '<td><form method="POST" action="@Url.Action("actions","section")?sectionId=' + data[i].SectionId + '"><input type="submit" value="Edit" name="action" class="btn btn-info" /></form></td>|<td><form method="POST" action="@Url.Action("actions","section")?sectionId=' + data[i].SectionId + '"> <input type="submit" name="action" value="Delete" class="btn btn-danger" style="float:left;margin-right:30px;" /></form></td>' +
+                                '</tr></tbody>');
+                    }
+                }
+        }).error(function () {
+            $('#loader').hide();
+                $('#sectionList tbody tr').remove();
+                $('#sectionList').append('<tbody><tr> <td colspan="4"> No data available in table </td> </tr></tbody>');
+        });
+        }
+        $(document).ready(function () {
+            $('.dataTable').dataTable();
+        });
+      
+    </script>
+}

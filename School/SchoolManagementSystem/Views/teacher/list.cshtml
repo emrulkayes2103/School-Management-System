@@ -1,0 +1,102 @@
+﻿@using AppSupport.Tech
+@model IEnumerable<SchoolManagementSystem.Models.TeacherModel>
+
+@{
+    ViewBag.Title = "Teacher List";
+}
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-th-list"></i> Teacher list
+        </h2>
+    </div>
+
+}
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-danger">
+                    @Errmsg
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-th-list"></i>
+                    Teachers List
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table datatable dataTable table-bordered table-responsive table-striped">
+                            <thead>
+                            <tr>
+                                <th>Image </th>
+                                <th>Name </th>
+                                <th>Email </th>
+                                <th>Is Active</th>
+                                <th>Is Delete</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                using (Html.BeginForm("actions", "teacher", new {teacherId = item.teacherId}))
+                                 {
+                                     <tbody>
+                                     <tr>
+                                         <td><img src="@Url.Content("~/ProfileImage/"+item.proPicname)" alt="@item.teacherName" height="50" width="50"/></td>
+                                         <td>@item.teacherName</td>
+                                         <td>@item.teacherEmail</td>
+                                         <td>@item.isActive</td>
+                                         <td>@item.isDeleted</td>
+                                         <td>
+                                             @Html.ActionLink("Edit", "Edit", new { teacherId = AppSupportLibraryManager.EncryptString(item.teacherId) }, htmlAttributes: new
+                                            {
+                                                @class = "btn btn-success"
+                                            }) |
+                                             @Html.ActionLink("Details", "Details", new { teacherId = AppSupportLibraryManager.EncryptString(item.teacherId) }, htmlAttributes: new
+                                            {
+                                                @class = "btn btn-default"
+                                            }) |
+                                             <input type="submit" name="action" value="Activate" class="btn btn-info" /> |
+                                             <input type="submit" name="action" value="Deactivate" class="btn btn-warning" /> |
+                                             <input type="submit" value="Delete" name="action" class="btn btn-danger" />
+                                         </td>
+                                     </tr>
+                                     </tbody>
+                                 }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptContent{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTable').dataTable();
+        });
+    </script>
+}
+

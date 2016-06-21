@@ -1,0 +1,108 @@
+﻿@model SchoolManagementSystem.Models.SectionModel
+@using SchoolManagementSystem.Models
+
+@{
+    ViewBag.Title = "Create class";
+}
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-server"></i>    Create Section
+        </h2>
+    </div>
+
+}
+@using (Html.BeginForm("create", "section", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @{
+    string msg = TempData["successMsg"] as string;
+    string Errmsg = TempData["ErrorMsg"] as string;
+    if(!string.IsNullOrEmpty(msg))
+    {
+        <div class="alert alert-success">
+            @msg
+        </div>
+    }
+    if (!string.IsNullOrEmpty(Errmsg))
+    {
+        <div class="alert alert-danger">
+            @Errmsg
+        </div>
+    }
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-bars"></i>
+                        Create Section
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Name :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(section => section.SectionName, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(section => section.SectionName, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Section Nick Name :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(section => section.SectionNickName, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(section => section.SectionNickName, "*")
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Class :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(section => section.SelectedClass, Model.ClassList, "Select Class", new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(section => section.SelectedClass, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Teacher :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(section => section.SelectedTeaher, Model.teacherList, "Select Teacher", new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(section => section.SelectedTeaher, "*")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <input type="submit" value="Create Section" class="btn btn-info"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

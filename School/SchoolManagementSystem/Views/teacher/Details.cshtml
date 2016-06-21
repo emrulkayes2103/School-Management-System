@@ -1,0 +1,177 @@
+﻿@model SchoolManagementSystem.Models.TeacherModel
+
+@{
+    ViewBag.Title = "Details";
+}
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-eye-slash"></i>     Teacher Details
+        </h2>
+    </div>
+
+}
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-danger">
+                    @Errmsg
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-eye-slash"></i>
+                     Teacher Details
+                    <div class="pull-right">
+                        <a href='@Url.Action("list", "teacher")' style="color: #ffffff">
+                            <i class="fa fa-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <img src='@Url.Content("~/ProfileImage/" + Model.proPicname)' class="img-circle" alt='@Model.teacherName' height="200" width="200"/>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Name :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Email :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherEmail)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Date of Birth :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherDob)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+
+                                    <b>
+                                        Gender :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherGender)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Contact Number :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherContuctNumber)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Permanent Address :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherPermanentAdd)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        Present Address :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.teacherPresentAdd)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <b>
+                                        teacher Role :
+                                    </b>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DisplayFor(teacher => teacher.userRole)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

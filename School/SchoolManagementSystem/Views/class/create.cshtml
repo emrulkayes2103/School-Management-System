@@ -1,0 +1,106 @@
+﻿@model SchoolManagementSystem.Models.ClassModel
+
+@{
+    ViewBag.Title = "Class";
+}
+
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-server"></i>    Create Class
+        </h2>
+    </div>
+
+}
+@using (Html.BeginForm("create", "class", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @{
+    string msg = TempData["successMsg"] as string;
+    string Errmsg = TempData["ErrorMsg"] as string;
+    if(!string.IsNullOrEmpty(msg))
+    {
+        <div class="alert alert-success">
+            @msg
+        </div>
+    }
+    if (!string.IsNullOrEmpty(Errmsg))
+    {
+        <div class="alert alert-danger">
+            @Errmsg
+        </div>
+    }
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-server"></i>
+                        Create Class
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Class Nme :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(classs => classs.className, new {@class = "form-control", @required = "required"})
+                                        @Html.ValidationMessageFor(classs => classs.className, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Class Numeric Number :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(classs => classs.classNumericNumber, new {@class = "form-control", @required = "required"})
+                                        @Html.ValidationMessageFor(classs => classs.classNumericNumber, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Teacher :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(classs => classs.classTeacherId, Model.teacherDropDwnList(), "Select Teacher", new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(classs => classs.classTeacherId, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+
+                                    </label>
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <input type="submit" value="Add Class" class="btn btn-info"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ }

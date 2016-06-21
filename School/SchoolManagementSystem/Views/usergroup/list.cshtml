@@ -1,0 +1,121 @@
+﻿@model IEnumerable<SchoolManagementSystemMVC.Models.UserGroupModel>
+
+@{
+    ViewBag.Title = "list";
+}
+
+@section TitleSection{
+    <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+        <i class="fa fa-th-list"></i>
+        User Group List
+    </h2>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-warning">
+                    @Errmsg
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-th-list"></i>
+                    User Group List
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table datatable dataTable table-bordered table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    @*<th>
+                                            @Html.DisplayNameFor(model => model.groupId)
+                                        </th>*@
+                                    <th>
+                                        Group Name
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Active
+                                    </th>
+                                    <th>
+                                        Deleted
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+
+                            @foreach (var item in Model)
+                            {
+                                using (@Html.BeginForm("Actions", "usergroup", new { groupId = item.groupId }))
+                                {
+                                    <tbody>
+                                    <tr>
+                                        @*<td>
+                                                    @Html.DisplayFor(modelItem => item.groupId)
+                                                </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.groupName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.groupDesc)
+                                        </td>
+                                        <td>
+                                            <b>  @Html.DisplayFor(modelItem => item.isActive)</b>
+                                        </td>
+                                        <td>
+                                            <b> @Html.DisplayFor(modelItem => item.isDeleted)</b>
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new {groupId = item.groupId}, htmlAttributes: new
+                                            {
+                                                @class = "btn btn-success"
+                                            }) |
+                                            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                                            <input type="submit" name="action" value="Active" class="btn btn-info" onclick="return confirm('Are You sure want to Activate??')"/> |
+                                            <input type="submit" name="action" value="Deactivate" class="btn btn-warning" onclick="return confirm('Are You sure want to Deactivate??')" /> |
+                                            <input type="submit" value="Delete" name="action" class="btn btn-danger" onclick="return confirm('Are You sure want to delete??')"/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                }
+
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptContent{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTable').dataTable();
+        });
+    </script>
+}

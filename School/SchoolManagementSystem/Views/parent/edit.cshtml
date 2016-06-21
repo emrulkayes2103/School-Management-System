@@ -1,0 +1,123 @@
+﻿@model SchoolManagementSystem.Models.ParentsModel
+
+@{
+    ViewBag.Title = "edit";
+}
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-eye-slash"></i>    Edit Parents
+        </h2>
+    </div>
+
+}
+@using (Html.BeginForm("edit", "parent", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @{
+    string msg = TempData["successMsg"] as string;
+    string Errmsg = TempData["ErrorMsg"] as string;
+    if (!string.IsNullOrEmpty(msg))
+    {
+        <div class="alert alert-success">
+            @msg
+        </div>
+    }
+    if (!string.IsNullOrEmpty(Errmsg))
+    {
+        <div class="alert alert-danger">
+            @Errmsg
+        </div>
+    }
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-eye-slash"></i>
+                        Edit Parents
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Name :
+                                    </label>
+                                    <div>
+                                        @Html.HiddenFor(parent => parent.parentId)
+                                        @Html.TextBoxFor(parent => parent.parentName, new {@class = "form-control", @required = "required"})
+                                        @Html.ValidationMessageFor(parent => parent.parentName, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Email :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(parent => parent.parentEmail, new { @class = "form-control", @required = "required" ,@disabled="disabled" })
+                                        @Html.ValidationMessageFor(parent => parent.parentEmail, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Contact Number :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(parent => parent.parentContactNumber, new { @class = "form-control", @required = "required" })
+                                        @Html.ValidationMessageFor(parent => parent.parentContactNumber, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Address :
+                                    </label>
+                                    <div>
+                                        @Html.TextAreaFor(parent => parent.parentAddress, new { @class = "form-control", @required = "required" })
+                                        @Html.ValidationMessageFor(parent => parent.parentAddress, "*")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Profession :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(parent => parent.parentProfession, new { @class = "form-control", @required = "required" })
+                                        @Html.ValidationMessageFor(parent => parent.parentProfession, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <input type="submit" value="Update Parent" class="btn btn-info" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,71 @@
+﻿@model SchoolManagementSystem.Models.login
+
+@{
+    ViewBag.Title = "login";
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSPINIA | Login</title>
+    <link rel="icon" href="/content/img/favicon.png" />
+    <link href="/content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/content/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/content/css/animate.css" rel="stylesheet">
+    <link href="/content/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    @using (@Html.BeginForm("login", "login", FormMethod.Post))
+    {
+        <div class="middle-box text-center loginscreen animated fadeInDown">
+            <div>
+                <div>
+                    <h3 class="logo-name">SM+</h3>
+                </div>
+                <h3>Welcome to SMS+</h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        @{
+        string msg = TempData["successMsg"] as string;
+        string Errmsg = TempData["ErrorMsg"] as string;
+        if (!string.IsNullOrEmpty(msg))
+        {
+            <div class="alert alert-success">
+                @msg
+            </div>
+        }
+        if (!string.IsNullOrEmpty(Errmsg))
+        {
+            <div class="alert alert-danger">
+                @Errmsg
+            </div>
+        }
+                        }
+
+                    </div>
+                </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(log => log.Email, new { @class = "form-control", autocomplete = "off", placeholder = "Email", name = "email", required = "required" })
+                        @Html.ValidationMessageFor(log => log.Email)
+                    </div>
+                    <div class="form-group">
+                        @Html.PasswordFor(log => log.Password, new { autocomplete = "off", placeholder = "Password", name = "password", @class = "form-control", required = "required" })
+                        @Html.ValidationMessageFor(log => log.Password)
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                    <a href="#"><small>Forgot password?</small></a>
+            </div>
+        </div>
+
+            <!-- Bottom Scripts -->
+            <script src="/content/js/jquery-2.1.1.js"></script>
+            <script src="/content/js/bootstrap.min.js"></script>
+    }
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.ParentsModel>
+@using AppSupport.Tech
+@{
+    ViewBag.Title = "Parents List";
+}
+
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-th-list"></i>    Parents List
+        </h2>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-danger">
+                    @Errmsg
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-th-list"></i>
+                    Parents List
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table datatable dataTable table-bordered table-responsive table-striped">
+                            <thead>
+                            <tr>
+                                <th>Name </th>
+                                <th>Email</th>
+                                <th>Contact Number</th>
+                                <th>Address</th>
+                                <th>Profession</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                using (Html.BeginForm("delete", "parent", new {parentId = item.parentId}))
+                                {
+                                    <tbody>
+                                    <tr>
+                                        <td>@item.parentName</td>
+                                        <td>@item.parentEmail</td>
+                                        <td>@item.parentContactNumber</td>
+                                        <td>@item.parentAddress</td>
+                                        <td>@item.parentProfession</td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "edit", new {parentId = AppSupportLibraryManager.EncryptString(item.parentId)}, htmlAttributes: new {@class = "btn btn-info"}) |
+                                            <input type="submit" value="Delete" class="btn btn-danger"/>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptContent{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTable').dataTable();
+        });
+    </script>
+}

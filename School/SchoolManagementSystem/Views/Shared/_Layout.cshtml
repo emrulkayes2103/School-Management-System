@@ -1,0 +1,74 @@
+﻿@using AppSupport.Tech
+@{
+    string UserName = AppSupportSessionManager.Get("UserName").ToString();
+    string Email = AppSupportSessionManager.Get("UserEmail").ToString();
+    string UserRole = AppSupportSessionManager.Get("UserRole").ToString();
+    
+    string imageName = AppSupportSessionManager.Get("ProfileImageName").ToString();
+
+    if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(UserRole))
+    {
+        Response.Redirect(@Url.Action("login","login"));
+    }
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Admin | School Management System</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="icon" href="/content/img/favicon.png"/>
+    <link rel="stylesheet" href="/content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/content/font-awesome/css/font-awesome.css">
+    <link href="~/content/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/content/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet"/>
+    <link href="~/content/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/content/css/animate.css">
+    <link rel="stylesheet" href="/content/css/style.css">
+    <link href="~/content/Styles.css" rel="stylesheet" />
+    @RenderSection("HeaderContent", required: false)
+</head>
+<body class="pace-done">
+    <div id="wrapper">
+       @Html.Partial("_Sidebar")
+       <div class="gray-bg" id="page-wrapper" style="min-height: 1283px;">
+            @Html.Partial("_Header")
+            <div class="row wrapper border-bottom white-bg page-heading">
+                @RenderSection("TitleSection",required:false)
+                </div>
+            <div class="wrapper wrapper-content">
+                @RenderBody()
+
+                </div>
+            @Html.Partial("_Footer")
+            </div>
+        </div>
+    
+    <script src="/content/js/jquery-2.1.1.js"></script>
+<script src="/content/js/bootstrap.min.js"></script>
+    <script src="~/content/js/moment.js"></script>
+    <script src="/content/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/content/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/content/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/content/js/jquery.validate.min.js"></script>
+    <script src="~/content/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/content/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="~/content/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<script src="~/content/js/plugins/dataTables/dataTables.responsive.js"></script>
+   
+    <script src="~/content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="/content/js/inspinia.js"></script>
+    <script src="/content/js/plugins/pace/pace.min.js"></script>
+<script src="~/content/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="~/content/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    @RenderSection("ScriptContent",required:false)
+</body>
+</html>

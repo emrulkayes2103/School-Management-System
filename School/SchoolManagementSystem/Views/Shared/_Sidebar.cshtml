@@ -1,0 +1,99 @@
+﻿
+@using AppSupport.Tech
+<nav class="navbar-default navbar-static-side">
+    <div class="sidebar-collapse">
+        <ul id="side-menu" class="nav" style="display: block;">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                    
+                        <img src="@Url.Content("~/ProfileImage/" + AppSupportSessionManager.Get("ProfileImageName")).ToString()" class="img-circle" alt="image" height="50" width="50" />
+                    </span>
+                    <a href="empty_page.html#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">@AppSupportSessionManager.Get("UserName").ToString()</strong>
+                            </span> <span class="text-muted text-xs block">@AppSupportSessionManager.Get("userRole").ToString() <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="mailbox.html">Mailbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    SMS+
+                </div>
+            </li>
+            <li>
+
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Users</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="@Url.Action("create", "user")"><i class="fa fa-plus"></i>Create</a></li>
+                    <li><a href="@Url.Action("list", "user")"><i class="fa fa-th-list"></i>List</a></li>
+                    <li><a href="@Url.Action("detailsList", "user")"><i class="fa fa-info-circle"></i>Details List</a></li>
+                </ul>
+            </li>  
+            @*<li>
+                <a href="#"><i class="fa fa-group"></i> <span class="nav-label">User Group</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="@Url.Action("create", "usergroup")"><i class="fa fa-plus"></i>Create</a></li>
+                    <li><a href="@Url.Action("list", "usergroup")"><i class="fa fa-th-list"></i>List</a></li>
+                </ul>
+            </li>*@
+            <li>
+                <a href="#"><i class="fa fa-user-plus"></i> <span class="nav-label">Teacher</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="@Url.Action("create", "teacher")"><i class="fa fa-user-md"></i>Create</a></li>
+                    <li><a href="@Url.Action("list", "teacher")"><i class="fa fa-th-list"></i>List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-user-times"></i> <span class="nav-label">Parents</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="@Url.Action("create", "parent")"><i class="fa fa-user-md"></i>Create</a></li>
+                    <li><a href="@Url.Action("list", "parent")"><i class="fa fa-th-list"></i>List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-server"></i> <span class="nav-label">Class</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li>
+                        <a href="#"><i class="fa fa-dot-circle-o"></i> <span class="nav-label">Manage Classes</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse">
+                            <li><a href="@Url.Action("create", "class")"><i class="fa fa-plus"></i>Create</a></li>
+                            <li><a href="@Url.Action("list", "class")"><i class="fa fa-th-list"></i>List</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-dot-circle-o"></i> <span class="nav-label">Manage Sections</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse">
+                            <li><a href="@Url.Action("create", "section")"><i class="fa fa-plus"></i>Create</a></li>
+                            <li><a href="@Url.Action("list", "section")"><i class="fa fa-th-list"></i>List</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Subject</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="@Url.Action("create", "subject")"><i class="fa fa-plus-square-o"></i>Create</a></li>
+                    <li><a href="@Url.Action("list", "subject")"><i class="fa fa-th-list"></i>List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-server"></i> <span class="nav-label">Class Routine</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="@Url.Action("create", "classroutine")"><i class="fa fa-plus-square-o"></i>Create</a></li>
+                    <li><a href="@Url.Action("list", "classroutine")"><i class="fa fa-th-list"></i>List</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

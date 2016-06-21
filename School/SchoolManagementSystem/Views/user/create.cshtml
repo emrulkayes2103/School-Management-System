@@ -1,0 +1,276 @@
+﻿@model SchoolManagementSystem.Models.users
+
+@{
+    ViewBag.Title = "Create Users";
+}
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-plus"></i>    Create users
+        </h2>
+    </div>
+
+}
+
+@using (@Html.BeginForm("create", "user", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @{
+    string msg = TempData["successMsg"] as string;
+    string Errmsg = TempData["ErrorMsg"] as string;
+    if(!string.IsNullOrEmpty(msg))
+    {
+        <div class="alert alert-success">
+            @msg
+        </div>
+    }
+    if (!string.IsNullOrEmpty(Errmsg))
+    {
+        <div class="alert alert-danger">
+            @Errmsg
+        </div>
+    }
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-user"></i>
+                       Create  User
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Name :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.Name, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.Name, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Email :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.Email, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.Email, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Date of birth :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.DOB, new { @class = "form-control default-date-picker" })
+                                        @Html.ValidationMessageFor(user => user.DOB, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Gender :</b>
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(user => user.Gender, new List<SelectListItem>()
+                                        {
+                                            new SelectListItem() {Text = "Male", Value = "Male"},
+                                            new SelectListItem() {Text = "Female", Value = "Female"}
+                                        }, "Select Gender", new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.Gender, "*")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Contact Number :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.ContactNumber, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.ContactNumber, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Nationality :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.nationality, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.nationality, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Blood Group :</b>
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(user => user.bloodGroup, new List<SelectListItem>()
+                                        {
+                                            new SelectListItem() {Text = "A+", Value = "A+"},
+                                            new SelectListItem() {Text = "A-", Value = "A-"},
+                                            new SelectListItem() {Text = "B+", Value = "B+"},
+                                            new SelectListItem() {Text = "B-", Value = "B-"},
+                                            new SelectListItem() {Text = "O+", Value = "O+"},
+                                            new SelectListItem() {Text = "O-", Value = "O-"},
+                                            new SelectListItem() {Text = "AB+", Value = "AB+"},
+                                            new SelectListItem() {Text = "AB-", Value = "AB-"}
+
+                                        }, "Select Blood Group", new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.bloodGroup, "*")
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Permanent Address :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextAreaFor(user => user.perManentAdd, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.perManentAdd, "*")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Present Address :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextAreaFor(user => user.presentAdd, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.presentAdd, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>National Id :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.NationalID, new {@class = "form-control"})
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Fathers Name :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.FathersName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(user => user.FathersName, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Mothers Name :</b>
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(user => user.motherName, new { @class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.motherName, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Image :</b>
+                                    </label>
+                                    <div>
+                                        <input type="file" id="file" name="file" class="fileinput-inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Password :</b>
+                                    </label>
+                                    <div>
+                                        @Html.PasswordFor(user => user.password, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(user => user.password, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>Re-Type Password :</b>
+                                    </label>
+                                    <div>
+                                        @Html.PasswordFor(user => user.reTypePass, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(user => user.reTypePass, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        <b>User Role :</b>
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(user => user.userRole,(SelectList)ViewBag.userRole,"Select User role", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(user => user.userRole, "*")
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <input type="submit" value="Save" class="btn btn-info"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section ScriptContent
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.default-date-picker').datepicker({ autoclose: true, format: "dd/mm/yyyy" });
+        });
+    </script>
+}

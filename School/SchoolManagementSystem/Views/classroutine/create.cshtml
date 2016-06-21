@@ -1,0 +1,197 @@
+﻿@model SchoolManagementSystem.Models.ClassRoutineModel
+
+@{
+    ViewBag.Title = "Create Class Routine";
+
+}
+@section TitleSection{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-server"></i>    Create Class Routine
+        </h2>
+    </div>
+
+}
+
+@using (Html.BeginForm("create", "classroutine", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @{
+    string msg = TempData["successMsg"] as string;
+    string Errmsg = TempData["ErrorMsg"] as string;
+    if (!string.IsNullOrEmpty(msg))
+    {
+        <div class="alert alert-success">
+            @msg
+        </div>
+    }
+    if (!string.IsNullOrEmpty(Errmsg))
+    {
+        <div class="alert alert-danger">
+            @Errmsg
+        </div>
+    }
+            }
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-server"></i>
+                        Create Class Routine
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Class :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(routine => routine.SelectedClass, Model.ClassList, "--Select Class--", new { @class = "form-control", @id = "classDropDwnList", onchange = "getSectionAndSubjectByClassId();" })
+                                        @Html.ValidationMessageFor(routine => routine.SelectedClass, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Section :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(routine => routine.SeletedSection, Enumerable.Empty<SelectListItem>(), "--Select Class First--", new {@class = "form-control", @id = "sectionDropDwnList"})
+                                        @Html.ValidationMessageFor(routine => routine.SeletedSection, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Subject :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(routine => routine.SelectedSubject, Enumerable.Empty<SelectListItem>(), "--Select Class First--", new {@class = "form-control", @id = "SubjectDrpDwnList"})
+                                        @Html.ValidationMessageFor(routine => routine.SelectedSubject, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Day :
+                                    </label>
+                                    <div>
+                                        @Html.DropDownListFor(routine => routine.day, new List<SelectListItem>()
+                                        {
+                                            new SelectListItem() {Text = "Satarday", Value = "Satarday"},
+                                            new SelectListItem() {Text = "Sunday", Value = "Sunday"},
+                                            new SelectListItem() {Text = "Monday", Value = "Monday"},
+                                            new SelectListItem() {Text = "Tuesday", Value = "Tuesday"},
+                                            new SelectListItem() {Text = "Wednesday", Value = "Wednesday"},
+                                            new SelectListItem() {Text = "Thrusday", Value = "Thrusday"},
+                                            new SelectListItem() {Text = "Friday", Value = "Friday"}
+                                        }, "--Select Day--", new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(routine => routine.day, "*")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Start Time :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(routine => routine.strtTime, new {@class = "form-control", @id = "classStartTime"})
+                                        @Html.ValidationMessageFor(routine => routine.strtTime, "*")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        End Time :
+                                    </label>
+                                    <div>
+                                        @Html.TextBoxFor(routine => routine.endTime, new {@class = "form-control", @id = "classEndTime"})
+                                        @Html.ValidationMessageFor(routine => routine.endTime, "*")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <input type="submit" value="Add Class Routine" class="btn btn-info"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section ScriptContent
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#classStartTime').datetimepicker({
+                format: 'LT'
+            });
+            $('#classEndTime').datetimepicker({
+                format: 'LT'
+            });
+        });
+
+        function getSectionAndSubjectByClassId() {
+            var SelectedClassId = $('#classDropDwnList').val();
+            $.ajax({
+                url: '@Url.Action("SectionByClassId", "section")',
+                method: "POST",
+                cache: false,
+                dataType: "JSON",
+                data: { classId: SelectedClassId }
+            }).done(function(data) {
+                $('#sectionDropDwnList option').remove();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#sectionDropDwnList').append($("<option></option>").val(data[i].SectionId).html(data[i].SectionName + " ( " + data[i].SectionNickName + " )"));
+                    }
+                }
+            }).error(function() {
+                $('#sectionDropDwnList option').remove();
+                $('#sectionDropDwnList').append($("<option></option>").val("--Select Section--").html("No Section"));
+            });
+
+            $.ajax({
+                url: '@Url.Action("GetSubjectListByClassId", "subject")',
+                method: "POST",
+                cache: false,
+                dataType: "JSON",
+                data: { ClassId: SelectedClassId }
+            }).done(function(data) {
+                $('#SubjectDrpDwnList option').remove();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#SubjectDrpDwnList').append($("<option></option>").val(data[i].subjectId).html(data[i].subjectName));
+                    }
+                }
+            }).error(function() {
+                $('#SubjectDrpDwnList option').remove();
+                $('#SubjectDrpDwnList').append($("<option></option>").val("--Select Subject--").html("No Subject"));
+            });
+        }
+
+    </script>
+}

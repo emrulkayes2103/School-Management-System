@@ -1,0 +1,4 @@
+﻿@model SchoolManagementSystem.Models.SectionModel
+
+@Html.DropDownListFor(section => section.SelectedClass, Model.ClassList, "Select Class", new { @class = "form-control", @id = "ClassDrpDwnList", onchange = "GetSectionLIstByClassId()" })
+@Html.ValidationMessageFor(section => section.SelectedClass, "*")

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.users>
+
+@{
+    ViewBag.Title = "list";
+}
+@section TitleSection
+{
+    <div class="col-md-12">
+        <h2 style="margin:20px 0px; color:#818da1; font-weight:200;">
+            <i class="fa fa-th-list"></i>  All users
+        </h2>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        @{
+            string msg = TempData["successMsg"] as string;
+            string Errmsg = TempData["ErrorMsg"] as string;
+            if (!string.IsNullOrEmpty(msg))
+            {
+                <div class="alert alert-success">
+                    @msg
+                </div>
+            }
+            if (!string.IsNullOrEmpty(Errmsg))
+            {
+                <div class="alert alert-danger">
+                    @Errmsg
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-th-list"></i>
+                    User Group List
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table datatable dataTable table-bordered table-responsive table-striped">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Blood group</th>
+                                <th>Active</th>
+                                <th>Delete</th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                            {
+
+                                    <tr>
+                                        <td><img src="@Url.Content("~/ProfileImage/" + item.profileImage)" alt="@item.Name" class="img-circle" height="40" width="40" /></td>
+                                        <td>@Html.DisplayFor(user => item.Name)</td>
+                                        <td>@Html.DisplayFor(user => item.Email)</td>
+                                        <td>@Html.DisplayFor(user => item.Gender)</td>
+                                        <td>@Html.DisplayFor(user => item.bloodGroup)</td>
+                                        <td>@Html.DisplayFor(user => item.isActive)</td>
+                                        <td>@Html.DisplayFor(user => item.isDeleted)</td>
+                                        <td>
+                                            @using (Html.BeginForm("Actions", "user", new {userId = item.id}))
+                                            {
+                                                @Html.ActionLink("Edit", "Edit", new { userId = item.id }, htmlAttributes: new
+                                                    {
+                                                        @class = "btn btn-success"
+                                                    });
+                                            <input type="submit" name="action" value="Active" class="btn btn-info" /> 
+                                            <input type="submit" name="action" value="Deactivate" class="btn btn-warning"/> 
+                                            <input type="submit" value="Delete" name="action" class="btn btn-danger"/>
+
+                                            }
+
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptContent{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.dataTable').dataTable();
+        });
+    </script>
+}
+
